@@ -1,11 +1,11 @@
-import './MultiCheck.css';
-
 import React from 'react';
 
-export type Option = {
-  label: string,
-  value: string
-}
+import './MultiCheck.css';
+
+import Checkbox from './Checkbox';
+import MultiCheckContext from './MultiCheckContext';
+
+import {Option, Props, MultiCheckContextValue} from '../types/multiCheck';
 
 /**
  * Notice:
@@ -19,18 +19,49 @@ export type Option = {
  * @param {Function} onChange - when checked options are changed,
  *                             they should be passed to outside
  */
-type Props = {
-  label?: string,
-  options: Option[],
-  columns?: number,
-  values?: string[]
-  onChange?: (options: Option[]) => void,
-}
-
 const MultiCheck: React.FunctionComponent<Props> = (props): JSX.Element => {
-  return <div className='MultiCheck'>
-    {/* TODO */}
-  </div>
+  const {
+    label,
+    options,
+    columns,
+    values,
+    onChange,
+  } = props;
+  const baseStyle = {
+    display:'inline-grid',
+    gridTemplateColumns:`repeat(${columns||2}, 1fr)`,
+    gridColumnGap:'20px',
+    gridRowGap:'10px',
+  };
+  const selectAllCheckboxProps = {
+    label:'Select All',
+    value:'',
+    checked:values.length===options.length,
+    selectAllFlag:true,
+  };
+  const contextValue:MultiCheckContextValue = {
+    values,
+    options,
+    onChange
+  };
+
+  return (
+    <MultiCheckContext.Provider value={contextValue}>
+      <div className='MultiCheck' style={baseStyle}>
+        <Checkbox {...selectAllCheckboxProps}></Checkbox>
+        {
+          options.map((item,index)=>{
+            const checkboxProps = Object.assign({},item,{
+              key:index,
+              checked:values.includes(item.value),
+            })
+            return <Checkbox {...checkboxProps}></Checkbox>
+          })
+        }
+      </div>
+    </MultiCheckContext.Provider>
+  )
 }
 
+export {Option};
 export default MultiCheck;
