@@ -6,7 +6,6 @@ import Checkbox from './Checkbox';
 import MultiCheckContext from './MultiCheckContext';
 
 import {Option, Props, MultiCheckContextValue} from '../types/multiCheck';
-
 /**
  * Notice:
  * 1. There should be a special `Select All` option with checkbox to control all passing options
@@ -44,7 +43,6 @@ const MultiCheck: React.FunctionComponent<Props> = (props): JSX.Element => {
     options,
     onChange
   };
-
   return (
     <MultiCheckContext.Provider value={contextValue}>
       <div className='MultiCheck' style={baseStyle}>

@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "jest": "25.1.0",
+    "pretty-checkbox": "^3.0.3",
     "react": "16.9.0",
     "react-dom": "16.9.0"
   },
