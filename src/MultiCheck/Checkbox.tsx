@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-import 'pretty-checkbox/dist/pretty-checkbox.css'
+import 'pretty-checkbox/dist/pretty-checkbox.css';
 
 import MultiCheckContext from './MultiCheckContext';
 import {CheckboxProps} from '../types/multiCheck';
@@ -17,6 +17,7 @@ const Checkbox: React.FC<CheckboxProps> = (props:CheckboxProps) =>{
     value,
     checked,
     selectAllFlag,
+    onCheckboxChange,
     ...rest
   } = props;
   const {
@@ -24,8 +25,15 @@ const Checkbox: React.FC<CheckboxProps> = (props:CheckboxProps) =>{
     options,
     onChange,
   } = useContext(MultiCheckContext);
+  const [checkedWhenUseSelf, setCheckedWhenUseSelf] = useState<boolean>(false);
 
   const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    //use alone, without MultiCheck 
+    if(checked===undefined){
+      setCheckedWhenUseSelf(event.target.checked);
+      onCheckboxChange&&onCheckboxChange(event);
+      return;
+    }
     // select all checkout
     if(selectAllFlag){
       onChange(event.target.checked?options:[])
@@ -44,10 +52,10 @@ const Checkbox: React.FC<CheckboxProps> = (props:CheckboxProps) =>{
     } 
   };
   return (
-    <div className="pretty p-svg p-rotate">
+    <div className="checkbox pretty p-svg p-rotate">
       <input
         type='checkbox'
-        checked={checked}
+        checked={checked===undefined?checkedWhenUseSelf:checked}
         onChange={handleChange}
         value={value}
         {...rest}
@@ -61,5 +69,5 @@ const Checkbox: React.FC<CheckboxProps> = (props:CheckboxProps) =>{
     </div>
   )
 }
-
+Checkbox.displayName = 'Checkbox';
 export default Checkbox;

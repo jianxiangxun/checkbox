@@ -11,15 +11,16 @@ export type Props = {
     onChange: (options: Option[]) => void,
 }
 
-export type CheckboxProps = {
-    label: string,
-    value?: string,
-    checked: boolean,
-    selectAllFlag?: boolean,
-}
-
 export interface MultiCheckContextValue {
     values: string[],
     options: Option[],
     onChange: (options: Option[]) => void
+}
+
+export type CheckboxProps = {
+    label: string,
+    value: string,
+    onCheckboxChange?:(event:React.ChangeEvent<HTMLInputElement>)=> void,
+    checked?: boolean,
+    selectAllFlag?: boolean,
 }
