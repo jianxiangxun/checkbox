@@ -12,6 +12,12 @@ const options: Option[] = [
   {label: 'hhh', value: '888',},
   {label: 'iii', value: '999',},
 ]
+// mock big amount of data
+// const options: Option[] = [];
+// for(let i=0;i<1000;i++){
+//   let random = `${Math.random()}`;
+//   options.push({label:random,value:random})
+// }
 
 const defaultValues: string[] = [
   '333',
