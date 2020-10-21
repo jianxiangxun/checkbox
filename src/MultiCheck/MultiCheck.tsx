@@ -16,7 +16,7 @@ import {Option, Props, MultiCheckContextValue} from '../types/multiCheck';
  * @param {string[]} values - default checked option values
  * @param {number} columns - default value is 1
  * @param {Function} onChange - when checked options are changed,
- *                             they should be passed to outside
+ *                              they should be passed to outside
  */
 const MultiCheck: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
@@ -26,6 +26,7 @@ const MultiCheck: React.FunctionComponent<Props> = (props): JSX.Element => {
     values,
     onChange,
   } = props;
+  // layout use inline-grid, display multiple columns
   const baseStyle = {
     display:'inline-grid',
     gridTemplateColumns:`repeat(${columns||2}, 1fr)`,
@@ -35,6 +36,7 @@ const MultiCheck: React.FunctionComponent<Props> = (props): JSX.Element => {
   const selectAllCheckboxProps = {
     label:'Select All',
     value:'',
+    // checked condition, all other checkbox checked
     checked:values.length===options.length,
     selectAllFlag:true,
   };
@@ -44,8 +46,10 @@ const MultiCheck: React.FunctionComponent<Props> = (props): JSX.Element => {
     onChange
   };
   return (
+    // use context to pass data
     <MultiCheckContext.Provider value={contextValue}>
       <div className='MultiCheck' style={baseStyle}>
+        {/* select-all checkbox */}
         <Checkbox {...selectAllCheckboxProps}></Checkbox>
         {
           options.map((item,index)=>{
@@ -60,6 +64,6 @@ const MultiCheck: React.FunctionComponent<Props> = (props): JSX.Element => {
     </MultiCheckContext.Provider>
   )
 }
-
+MultiCheck.displayName = 'MultiCheck';
 export {Option};
 export default MultiCheck;
