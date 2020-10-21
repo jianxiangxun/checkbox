@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {
+  useMemo,
+} from 'react';
 
 import './MultiCheck.css';
 
@@ -40,11 +42,13 @@ const MultiCheck: React.FunctionComponent<Props> = (props): JSX.Element => {
     checked:values.length===options.length,
     selectAllFlag:true,
   };
-  const contextValue:MultiCheckContextValue = {
+  // useMemo avoid unnecessary executions or renders
+  const contextValue:MultiCheckContextValue = useMemo(()=>({
     values,
     options,
     onChange
-  };
+  }),[values,onChange]);
+  
   return (
     // use context to pass data
     <MultiCheckContext.Provider value={contextValue}>

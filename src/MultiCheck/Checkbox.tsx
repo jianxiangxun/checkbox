@@ -1,8 +1,6 @@
 import React, {
-  forwardRef,
-  ReactElement,
+  useCallback,
   useContext,
-  useEffect,
   useState,
 } from 'react';
 
@@ -26,8 +24,8 @@ const Checkbox: React.FC<CheckboxProps> = (props:CheckboxProps) =>{
     onChange,
   } = useContext(MultiCheckContext);
   const [checkedWhenUseSelf, setCheckedWhenUseSelf] = useState<boolean>(false);
-
-  const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+  // useCallback avoid unnecessary executions or renders
+  const handleChange = useCallback((event:React.ChangeEvent<HTMLInputElement>) => {
     //use alone, without MultiCheck 
     if(checked===undefined){
       setCheckedWhenUseSelf(event.target.checked);
@@ -50,7 +48,7 @@ const Checkbox: React.FC<CheckboxProps> = (props:CheckboxProps) =>{
 
       onChange(nextOptions);
     } 
-  };
+  },[values, onChange]);
   return (
     <div className="checkbox pretty p-svg p-rotate">
       <input
