@@ -1,3 +1,21 @@
+## 优点：
+- 漂亮的check效果，让人印象深刻
+- 尝试使用如context等特性来简化状态管理
+- useCallback与useMemo的使用说明重视性能
+- 测试较全面，重点需求都照顾到了
+
+## 可以改进的地方：
+- 一个重要需求未正确实现：多列时，每一列顺序应该从上到下，而不是每一行从左右到
+- MultiCheck传入的label未使用
+- 组件属性比如selectAllCheckboxProps放在外面定义成变量，而不是写成组件形式，可读性不佳
+- context在这个组件中使用有点重，且其中onChange的语义不明确
+- useCallback与useMemo的使用不完全正确，依赖项有缺失
+- 很多let可以使用const，更安全
+- Checkbox中handleChange中的逻辑复杂难以理解
+- 测试写法有问题，大量写了setTimeout的测试永远不会失败
+
+
+
 TypeScript React Multi-Check Testing Program
 ============================================
 
